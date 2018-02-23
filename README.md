@@ -16,7 +16,7 @@
 
 ### 1 前言
 
-为了有利于项目维护、增强代码可读性、提升 Code Review 效率以及规范团队安卓开发，故提出以下安卓开发规范，该规范结合本人多年的开发经验并吸取多家之精华，可谓是本人的呕心沥血之作，称其为当前最完善的安卓开发规范一点也不为过，如有更好建议，欢迎到 GitHub 提 issue，原文地址：**[Android 开发规范（完结版）][Android 开发规范（完结版）]**。相关 Demo，可以查看我的 Android 开发工具类集合项目：**[Android 开发人员不得不收集的代码][Android 开发人员不得不收集的代码]**。后续可能会根据该规范出一个 CheckStyle 插件来检查是否规范，当然也支持在 CI 上运行。
+为了有利于项目维护、增强代码可读性、提升 Code Review 效率以及规范团队安卓开发，故提出以下安卓开发规范.
 
 
 ### 2 AS 规范
@@ -27,7 +27,7 @@
 2. 编码格式统一为 **UTF-8**；
 3. 编辑完 .java、.xml 等文件后一定要 **格式化，格式化，格式化**（如果团队有公共的样式包，那就遵循它，否则统一使用 AS 默认模板即可）；
 4. 删除多余的 import，减少警告出现，可利用 AS 的 Optimize Imports（Settings -> Keymap -> Optimize Imports）快捷键；
-5. Android 开发者工具可以参考这里：**[Android 开发者工具][Android 开发者工具]**；
+
 
 
 ### 3 命名规范
@@ -89,11 +89,10 @@
 
 如要知道更多好处，可以查看这篇博文：**[Package by features, not layers][Package by features, not layers]**，当然，我们大谷歌也有相应的 Sample：**[todo-mvp][todo-mvp]**，其结构如下所示，很值得学习。
 
-```
-com
-└── example
-    └── android
-        └── architecture
+    com
+      └── example 
+        └── android   
+          └── architecture
             └── blueprints
                 └── todoapp
                     ├── BasePresenter.java
@@ -135,13 +134,12 @@ com
                         ├── ActivityUtils.java
                         ├── EspressoIdlingResource.java
                         └── SimpleCountingIdlingResource.java
-```
 
 参考以上的代码结构，按功能分包具体可以这样做：
 
-```
-com
-└── domain
+      
+    com
+    └── domain
     └── app
         ├── App.java 定义 Application 类
         ├── Config.java 定义配置数据（常量）
@@ -162,7 +160,6 @@ com
         ├── injection 依赖注入
         ├── util 工具类
         └── widget 小部件
-```
 
 
 #### 3.2 类名
@@ -173,17 +170,17 @@ com
 
 名词，采用大驼峰命名法，尽量避免缩写，除非该缩写是众所周知的， 比如 HTML、URL，如果类名称中包含单词缩写，则单词缩写的每个字母均应大写。
 
-| 类                     | 描述                        | 例如                                       |
-| :-------------------- | :------------------------ | :--------------------------------------- |
-| `Activity` 类          | `Activity` 为后缀标识          | 欢迎页面类 `WelcomeActivity`                  |
-| `Adapter` 类           | `Adapter` 为后缀标识           | 新闻详情适配器 `NewsDetailAdapter`              |
-| 解析类                   | `Parser` 为后缀标识            | 首页解析类 `HomePosterParser`                 |
-| 工具方法类                 | `Utils` 或 `Manager` 为后缀标识 | 线程池管理类：`ThreadPoolManager`<br>日志工具类：`LogUtils`（`Logger` 也可）<br>打印工具类：`PrinterUtils` |
-| 数据库类                  | 以 `DBHelper` 后缀标识         | 新闻数据库：`NewsDBHelper`                     |
-| `Service` 类           | 以 `Service` 为后缀标识         | 时间服务 `TimeService`                       |
-| `BroadcastReceiver` 类 | 以 `Receiver` 为后缀标识        | 推送接收 `JPushReceiver`                     |
-| `ContentProvider` 类   | 以 `Provider` 为后缀标识        | `ShareProvider`                          |
-| 自定义的共享基础类             | 以 `Base` 开头               | `BaseActivity`, `BaseFragment`           |
+| 类                     | 描述                        | 例如                                       |  
+| :-------------------- | :------------------------ | :--------------------------------------- |  
+| `Activity` 类          | `Activity` 为后缀标识          | 欢迎页面类 `WelcomeActivity`                  |  
+| `Adapter` 类           | `Adapter` 为后缀标识           | 新闻详情适配器 `NewsDetailAdapter`              |  
+| 解析类                   | `Parser` 为后缀标识            | 首页解析类 `HomePosterParser`                 |  
+| 工具方法类                 | `Utils` 或 `Manager` 为后缀标识 | 线程池管理类：`ThreadPoolManager`<br>日志工具类：    `LogUtils`（`Logger` 也可）打印工具类：`PrinterUtils` |  
+| 数据库类                  | 以 `DBHelper` 后缀标识         | 新闻数据库：`NewsDBHelper`                     |  
+| `Service` 类           | 以 `Service` 为后缀标识         | 时间服务 `TimeService`                       |  
+| `BroadcastReceiver` 类 | 以 `Receiver` 为后缀标识        | 推送接收 `JPushReceiver`                     |  
+| `ContentProvider` 类   | 以 `Provider` 为后缀标识        | `ShareProvider`                          |  
+| 自定义的共享基础类             | 以 `Base` 开头               | `BaseActivity`, `BaseFragment`           |  
 
 测试类的命名以它要测试的类的名称开始，以 Test 结束。例如：`HashTest` 或 `HashIntegrationTest`。
 
@@ -198,20 +195,20 @@ com
 
 方法名通常是动词或动词短语。
 
-| 方法                          | 说明                                       |
-| :-------------------------- | ---------------------------------------- |
-| `initXX()`                  | 初始化相关方法，使用 init 为前缀标识，如初始化布局 `initView()` |
-| `isXX()`, `checkXX()`       | 方法返回值为 boolean 型的请使用 is/check 为前缀标识      |
-| `getXX()`                   | 返回某个值的方法，使用 get 为前缀标识                    |
-| `setXX()`                   | 设置某个属性值                                  |
-| `handleXX()`, `processXX()` | 对数据进行处理的方法                               |
-| `displayXX()`, `showXX()`   | 弹出提示框和提示信息，使用 display/show 为前缀标识         |
-| `updateXX()`                | 更新数据                                     |
-| `saveXX()`, `insertXX()`    | 保存或插入数据                                  |
-| `resetXX()`                 | 重置数据                                     |
-| `clearXX()`                 | 清除数据                                     |
-| `removeXX()`, `deleteXX()`  | 移除数据或者视图等，如 `removeView()`               |
-| `drawXX()`                  | 绘制数据或效果相关的，使用 draw 前缀标识                  |
+| 方法                          | 说明                                       | 
+| :-------------------------- | ---------------------------------------- |     
+| `initXX()`                  | 初始化相关方法，使用 init 为前缀标识，如初始化布局 `initView()` |  
+| `isXX()`, `checkXX()`       | 方法返回值为 boolean 型的请使用 is/check 为前缀标识      |  
+| `getXX()`                   | 返回某个值的方法，使用 get 为前缀标识                    |  
+| `setXX()`                   | 设置某个属性值                                  |  
+| `handleXX()`, `processXX()` | 对数据进行处理的方法                               |  
+| `displayXX()`, `showXX()`   | 弹出提示框和提示信息，使用 display/show 为前缀标识         |  
+| `updateXX()`                | 更新数据                                     |  
+| `saveXX()`, `insertXX()`    | 保存或插入数据                                  |  
+| `resetXX()`                 | 重置数据                                     |  
+| `clearXX()`                 | 清除数据                                     |  
+| `removeXX()`, `deleteXX()`  | 移除数据或者视图等，如 `removeView()`               |  
+| `drawXX()`                  | 绘制数据或效果相关的，使用 draw 前缀标识                  |  
 
 
 #### 3.4 常量名
@@ -220,22 +217,20 @@ com
 
 每个常量都是一个 `static final` 字段，但不是所有 `static final` 字段都是常量。在决定一个字段是否是一个常量时，得考虑它是否真的感觉像是一个常量。例如，如果观测任何一个该实例的状态是可变的，则它几乎肯定不会是一个常量。只是永远不打算改变的对象一般是不够的，它要真的一直不变才能将它示为常量。
 
-```java
-// Constants
-static final int NUMBER = 5;
-static final ImmutableListNAMES = ImmutableList.of("Ed", "Ann");
-static final Joiner COMMA_JOINER = Joiner.on(','); // because Joiner is immutable
-static final SomeMutableType[] EMPTY_ARRAY = {};
-enum SomeEnum { ENUM_CONSTANT }
+    // Constants  
+      static final int NUMBER = 5;  
+      static final ImmutableListNAMES = ImmutableList.of("Ed", "Ann");  
+	  static final Joiner COMMA_JOINER = Joiner.on(','); // because Joiner is immutable  
+	  static final SomeMutableType[] EMPTY_ARRAY = {};  
+	  enum SomeEnum { ENUM_CONSTANT }  
 
-// Not constants
-static String nonFinal = "non-final";
-final String nonStatic = "non-static";
-static final SetmutableCollection = new HashSet();
-static final ImmutableSetmutableElements = ImmutableSet.of(mutable);
-static final Logger logger = Logger.getLogger(MyClass.getName());
-static final String[] nonEmptyArray = {"these", "can", "change"};
-```
+	// Not constants   
+	  static String nonFinal = "non-final";  
+	  final String nonStatic = "non-static";  
+	  static final SetmutableCollection = new HashSet();  
+	  static final ImmutableSetmutableElements = ImmutableSet.of(mutable);  
+	  static final Logger logger = Logger.getLogger(MyClass.getName());  
+	  static final String[] nonEmptyArray = {"these", "can", "change"};  
 
 
 #### 3.5 非常量字段名
@@ -256,15 +251,15 @@ static final String[] nonEmptyArray = {"these", "can", "change"};
 
 例如：
 
-```java
-public class MyClass {
-    public int publicField;
-    private static MyClass sSingleton;
-    int mPackagePrivate;
-    private int mPrivate;
-    protected int mProtected;
-}
-```
+    public class MyClass {  
+	    public int publicField;  
+	    private static MyClass sSingleton;  
+	    int mPackagePrivate;  
+	    private int mPrivate;    
+	    protected int mProtected;
+    }
+
+
 
 使用 1 个字符前缀来表示作用范围，1 个字符的前缀必须小写，前缀后面是由表意性强的一个单词或多个单词组成的名字，而且每个单词的首写字母大写，其它字母小写，这样保证了对变量名能够进行正确的断句。
 
@@ -282,13 +277,13 @@ public class MyClass {
 
 例如：`mFirstBook`、`mPreBook`、`curBook`。
 
-| 量词列表    | 量词后缀说明     |
-| ------- | ---------- |
-| `First` | 一组变量中的第一个  |
-| `Last`  | 一组变量中的最后一个 |
-| `Next`  | 一组变量中的下一个  |
-| `Pre`   | 一组变量中的上一个  |
-| `Cur`   | 一组变量中的当前变量 |
+| 量词列表    | 量词后缀说明     |  
+| ------- | ---------- |  
+| `First` | 一组变量中的第一个  |  
+| `Last`  | 一组变量中的最后一个 |  
+| `Next`  | 一组变量中的下一个  |  
+| `Pre`   | 一组变量中的上一个  |  
+| `Cur`   | 一组变量中的当前变量 |  
 
 
 ##### 3.5.4 Type1（数据类型）
@@ -339,40 +334,33 @@ public class MyClass {
 
 左大括号不单独占一行，与其前面的代码位于同一行：
 
-```java
-class MyClass {
-    int func() {
-        if (something) {
-            // ...
-        } else if (somethingElse) {
-            // ...
-        } else {
-            // ...
-        }
+    class MyClass {  
+	    int func() {  
+	        if (something) {
+	            // ...
+	        } else if (somethingElse) {
+	            // ...
+	        } else {
+	            // ...
+	        }
+	     }
     }
-}
-```
+
 
 我们需要在条件语句周围添加大括号。例外情况：如果整个条件语句（条件和主体）适合放在同一行，那么您可以（但不是必须）将其全部放在一行上。例如，我们接受以下样式：
 
-```java
-if (condition) {
-    body();
-}
-```
+    if (condition) {
+   	   body();
+    }
 
 同样也接受以下样式：
 
-```java
-if (condition) body();
-```
+    if (condition) body();
 
 但不接受以下样式：
 
-```java
-if (condition)
-    body();  // bad!
-```
+    if (condition)
+    	body();  // bad!
 
 
 #### 4.2 编写简短方法
@@ -394,51 +382,47 @@ if (condition)
 
 例如：
 
-```java
-public class MainActivity extends Activity {
+    public class MainActivity extends Activity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    private String mTitle;
-    private TextView mTextViewTitle;
-
-    @Override
-    public void onCreate() {
-        ...
+	    private static final String TAG = MainActivity.class.getSimpleName();
+	
+	    private String mTitle;
+	    private TextView mTextViewTitle;
+	
+	    @Override
+	    public void onCreate() {
+	        ...
+	    }
+	
+	    public void setTitle(String title) {
+	    	mTitle = title;
+	    }
+	
+	    private void setUpView() {
+	        ...
+	    }
+	
+	    static class AnInnerClass {
+	
+	    }
     }
-
-    public void setTitle(String title) {
-    	mTitle = title;
-    }
-
-    private void setUpView() {
-        ...
-    }
-
-    static class AnInnerClass {
-
-    }
-}
-```
 
 如果类继承于 Android 组件（例如 `Activity` 或 `Fragment`），那么把重写函数按照他们的生命周期进行排序是一个非常好的习惯，例如，`Activity` 实现了 `onCreate()`、`onDestroy()`、`onPause()`、`onResume()`，它的正确排序如下所示：
 
-```java
-public class MainActivity extends Activity {
-    //Order matches Activity lifecycle
-    @Override
-    public void onCreate() {}
-
-    @Override
-    public void onResume() {}
-
-    @Override
-    public void onPause() {}
-
-    @Override
-    public void onDestroy() {}
-}
-```
+    public class MainActivity extends Activity {
+	    //Order matches Activity lifecycle
+	    @Override
+	    public void onCreate() {}
+	
+	    @Override
+	    public void onResume() {}
+	
+	    @Override
+	    public void onPause() {}
+	
+	    @Override
+	    public void onDestroy() {}
+    }
 
 
 #### 4.4 函数参数的排序
@@ -449,13 +433,13 @@ public class MainActivity extends Activity {
 
 例如：
 
-```java
-// Context always goes first
-public User loadUser(Context context, int userId);
+    
+	// Context always goes first
+	public User loadUser(Context context, int userId);
+    
+	// Callbacks always go last
+	public void loadUserAsync(Context context, int userId, UserCallback callback);
 
-// Callbacks always go last
-public void loadUserAsync(Context context, int userId, UserCallback callback);
-```
 
 
 #### 4.5 字符串常量的命名和值
@@ -464,28 +448,28 @@ Android SDK 中的很多类都用到了键值对函数，比如 `SharedPreferenc
 
 当时用到这些类的时候，我们 **必须** 将它们的键定义为 `static final` 字段，并遵循以下指示作为前缀。
 
-| 类                  | 字段名前缀       |
-| ------------------ | ----------- |
-| SharedPreferences  | `PREF_`     |
-| Bundle             | `BUNDLE_`   |
-| Fragment Arguments | `ARGUMENT_` |
-| Intent Extra       | `EXTRA_`    |
-| Intent Action      | `ACTION_`   |
+| 类                  | 字段名前缀       |  
+| ------------------ | ----------- |  
+| SharedPreferences  | `PREF_`     |  
+| Bundle             | `BUNDLE_`   |  
+| Fragment Arguments | `ARGUMENT_` |  
+| Intent Extra       | `EXTRA_`    |  
+| Intent Action      | `ACTION_`   |  
 
 说明：虽然 `Fragment.getArguments()` 得到的也是 `Bundle` ，但因为这是 `Bundle` 的常用用法，所以特意为此定义一个不同的前缀。
 
 例如：
 
-```java
-// 注意：字段的值与名称相同以避免重复问题
-static final String PREF_EMAIL = "PREF_EMAIL";
-static final String BUNDLE_AGE = "BUNDLE_AGE";
-static final String ARGUMENT_USER_ID = "ARGUMENT_USER_ID";
+    
+	// 注意：字段的值与名称相同以避免重复问题
+	static final String PREF_EMAIL = "PREF_EMAIL";
+	static final String BUNDLE_AGE = "BUNDLE_AGE";
+	static final String ARGUMENT_USER_ID = "ARGUMENT_USER_ID";
+    
+	// 与意图相关的项使用完整的包名作为值的前缀
+	static final String EXTRA_SURNAME = "com.myapp.extras.EXTRA_SURNAME";
+	static final String ACTION_OPEN_USER = "com.myapp.action.ACTION_OPEN_USER";
 
-// 与意图相关的项使用完整的包名作为值的前缀
-static final String EXTRA_SURNAME = "com.myapp.extras.EXTRA_SURNAME";
-static final String ACTION_OPEN_USER = "com.myapp.action.ACTION_OPEN_USER";
-```
 
 
 #### 4.6 Activities 和 Fragments 的传参
@@ -496,25 +480,25 @@ static final String ACTION_OPEN_USER = "com.myapp.action.ACTION_OPEN_USER";
 
 这方面，AS 已帮你写好了相关的 Live Templates，启动相关 `Activity` 的只需要在其内部输入 `starter` 即可生成它的启动器，如下所示：
 
-```java
-public static void start(Context context, User user) {
-      Intent starter = new Intent(context, MainActivity.class);
-      starter.putParcelableExtra(EXTRA_USER, user);
-      context.startActivity(starter);
-}
-```
+    
+	public static void start(Context context, User user) {
+	      Intent starter = new Intent(context, MainActivity.class);
+	      starter.putParcelableExtra(EXTRA_USER, user);
+	      context.startActivity(starter);
+	}
+
 
 同理，启动相关 `Fragment` 在其内部输入 `newInstance` 即可，如下所示：
 
-```java
-public static MainFragment newInstance(User user) {
-      Bundle args = new Bundle();
-      args.putParcelable(ARGUMENT_USER, user);
-      MainFragment fragment = new MainFragment();
-      fragment.setArguments(args);
-      return fragment;
-}
-```
+    
+	public static MainFragment newInstance(User user) {
+	      Bundle args = new Bundle();
+	      args.putParcelable(ARGUMENT_USER, user);
+	      MainFragment fragment = new MainFragment();
+	      fragment.setArguments(args);
+	      return fragment;
+	}
+
 
 > 注意：这些函数需要放在 `onCreate()` 之前的类的顶部；如果我们使用了这种方式，那么 `extras` 和 `arguments` 的键应该是 `private` 的，因为它们不再需要暴露给其他类来使用。
 
@@ -539,17 +523,17 @@ public static MainFragment newInstance(User user) {
 
 除赋值操作符之外，我们把换行符放在操作符之前，例如：
 
-```java
-int longName = anotherVeryLongVariable + anEvenLongerOne - thisRidiculousLongOne
-        + theFinalOne;
-```
+    
+	int longName = anotherVeryLongVariable + anEvenLongerOne - thisRidiculousLongOne
+	        + theFinalOne;
+
 
 赋值操作符的换行我们放在其后，例如：
 
-```java
-int longName =
-        anotherVeryLongVariable + anEvenLongerOne - thisRidiculousLongOne + theFinalOne;
-```
+    
+	int longName =
+	        anotherVeryLongVariable + anEvenLongerOne - thisRidiculousLongOne + theFinalOne;
+
 
 
 ##### 4.7.1.2 函数链的换行
@@ -558,17 +542,16 @@ int longName =
 
 例如：
 
-```java
-Picasso.with(context).load("https://blankj.com/images/avatar.jpg").into(ivAvatar);
-```
+    
+	Picasso.with(context).load("https://blankj.com/images/avatar.jpg").into(ivAvatar);
+
 
 我们应该使用如下规则：
+    
+	Picasso.with(context)
+	        .load("https://blankj.com/images/avatar.jpg")
+	        .into(ivAvatar);
 
-```java
-Picasso.with(context)
-        .load("https://blankj.com/images/avatar.jpg")
-        .into(ivAvatar);
-```
 
 
 ##### 4.7.1.3 多参数的换行
@@ -577,19 +560,18 @@ Picasso.with(context)
 
 比如：
 
-```java
-loadPicture(context, "https://blankj.com/images/avatar.jpg", ivAvatar, "Avatar of the user", clickListener);
-```
+    
+	loadPicture(context, "https://blankj.com/images/avatar.jpg", ivAvatar, "Avatar of the user", clickListener);
+
 
 我们应该使用如下规则：
+    
+	loadPicture(context,
+	        "https://blankj.com/images/avatar.jpg",
+	        ivAvatar,
+	        "Avatar of the user",
+	        clickListener);
 
-```java
-loadPicture(context,
-        "https://blankj.com/images/avatar.jpg",
-        ivAvatar,
-        "Avatar of the user",
-        clickListener);
-```
 
 
 ##### 4.7.1.4 RxJava 链式的换行
@@ -598,30 +580,30 @@ RxJava 的每个操作符都需要换新行，并且把换行符插入在 `.` �
 
 例如：
 
-```java
-public Observable<Location> syncLocations() {
-    return mDatabaseHelper.getAllLocations()
-            .concatMap(new Func1<Location, Observable<? extends Location>>() {
-                @Override
-                 public Observable<? extends Location> call(Location location) {
-                     return mRetrofitService.getLocation(location.id);
-                 }
-            })
-            .retry(new Func2<Integer, Throwable, Boolean>() {
-                 @Override
-                 public Boolean call(Integer numRetries, Throwable throwable) {
-                     return throwable instanceof RetrofitError;
-                 }
-            });
-}
-```
+    
+	public Observable<Location> syncLocations() {
+	    return mDatabaseHelper.getAllLocations()
+	            .concatMap(new Func1<Location, Observable<? extends Location>>() {
+	                @Override
+	                 public Observable<? extends Location> call(Location location) {
+	                     return mRetrofitService.getLocation(location.id);
+	                 }
+	            })
+	            .retry(new Func2<Integer, Throwable, Boolean>() {
+	                 @Override
+	                 public Boolean call(Integer numRetries, Throwable throwable) {
+	                     return throwable instanceof RetrofitError;
+	                 }
+	            });
+	}
+
 
 
 ### 5 资源文件规范
 
 资源文件命名为全部小写，采用下划线命名法。
 
-如果是组件化开发，我们可以在组件和公共模块间创建一个 ui 模块来专门存放资源文件，然后让每个组件都依赖 ui 模块。这样做的好处是如果老项目要实现组件化的话，只需把资源文件都放入 ui 模块即可，如果想对资源文件进行分包，可以参考我这篇文章：**[Android Studio 下对资源进行分包][Android Studio 下对资源进行分包]**；还避免了多个模块间资源不能复用的问题。
+如果是组件化开发，我们可以在组件和公共模块间创建一个 ui 模块来专门存放资源文件，然后让每个组件都依赖 ui 模块。这样做的好处是如果老项目要实现组件化的话，只需把资源文件都放入 ui 模块即可，如果想对资源文件进行分包，可以参考这篇文章：**[Android Studio 下对资源进行分包][Android Studio 下对资源进行分包]**；还避免了多个模块间资源不能复用的问题。
 
 如果是三方库开发，其使用到的资源文件及相关的 `name` 都应该使用库名作为前缀，这样做可以避免三方库资源和实际应用资源重名的冲突。
 
@@ -639,17 +621,17 @@ public Observable<Location> syncLocations() {
 
 例如：
 
-| 名称                  | 说明      |
-| ------------------- | ------- |
-| `fade_in`           | 淡入      |
-| `fade_out`          | 淡出      |
-| `push_down_in`      | 从下方推入   |
-| `push_down_out`     | 从下方推出   |
-| `push_left`         | 推向左方    |
-| `slide_in_from_top` | 从头部滑动进入 |
-| `zoom_enter`        | 变形进入    |
-| `slide_in`          | 滑动进入    |
-| `shrink_to_middle`  | 中间缩小    |
+| 名称                  | 说明      |  
+| ------------------- | ------- |  
+| `fade_in`           | 淡入      |  
+| `fade_out`          | 淡出      |  
+| `push_down_in`      | 从下方推入   |  
+| `push_down_out`     | 从下方推出   |  
+| `push_left`         | 推向左方    |  
+| `slide_in_from_top` | 从头部滑动进入 |  
+| `zoom_enter`        | 变形进入    |  
+| `slide_in`          | 滑动进入    |  
+| `shrink_to_middle`  | 中间缩小    |  
 
 
 #### 5.2 颜色资源文件（color/）
@@ -675,40 +657,40 @@ public Observable<Location> syncLocations() {
 
 例如：
 
-| 名称                        | 说明                       |
-| ------------------------- | ------------------------ |
-| `btn_main_about.png`      | 主页关于按键 `类型_模块名_逻辑名称`     |
-| `btn_back.png`            | 返回按键 `类型_逻辑名称`           |
-| `divider_maket_white.png` | 商城白色分割线 `类型_模块名_颜色`      |
-| `ic_edit.png`             | 编辑图标 `类型_逻辑名称`           |
-| `bg_main.png`             | 主页背景 `类型_逻辑名称`           |
-| `btn_red.png`             | 红色按键 `类型_颜色`             |
-| `btn_red_big.png`         | 红色大按键 `类型_颜色`            |
-| `ic_head_small.png`       | 小头像图标 `类型_逻辑名称`          |
-| `bg_input.png`            | 输入框背景 `类型_逻辑名称`          |
-| `divider_white.png`       | 白色分割线 `类型_颜色`            |
-| `bg_main_head.png`        | 主页头部背景 `类型_模块名_逻辑名称`     |
-| `def_search_cell.png`     | 搜索页面默认单元图片 `类型_模块名_逻辑名称` |
-| `ic_more_help.png`        | 更多帮助图标 `类型_逻辑名称`         |
-| `divider_list_line.png`   | 列表分割线 `类型_逻辑名称`          |
-| `sel_search_ok.xml`       | 搜索界面确认选择器 `类型_模块名_逻辑名称`  |
-| `shape_music_ring.xml`    | 音乐界面环形形状 `类型_模块名_逻辑名称`   |
+| 名称                        | 说明                       |  
+| ------------------------- | ------------------------ |  
+| `btn_main_about.png`      | 主页关于按键 `类型_模块名_逻辑名称`     |  
+| `btn_back.png`            | 返回按键 `类型_逻辑名称`           |  
+| `divider_maket_white.png` | 商城白色分割线 `类型_模块名_颜色`      |  
+| `ic_edit.png`             | 编辑图标 `类型_逻辑名称`           |  
+| `bg_main.png`             | 主页背景 `类型_逻辑名称`           |  
+| `btn_red.png`             | 红色按键 `类型_颜色`             |  
+| `btn_red_big.png`         | 红色大按键 `类型_颜色`            |  
+| `ic_head_small.png`       | 小头像图标 `类型_逻辑名称`          |  
+| `bg_input.png`            | 输入框背景 `类型_逻辑名称`          |  
+| `divider_white.png`       | 白色分割线 `类型_颜色`            |  
+| `bg_main_head.png`        | 主页头部背景 `类型_模块名_逻辑名称`     |  
+| `def_search_cell.png`     | 搜索页面默认单元图片 `类型_模块名_逻辑名称` |  
+| `ic_more_help.png`        | 更多帮助图标 `类型_逻辑名称`         |  
+| `divider_list_line.png`   | 列表分割线 `类型_逻辑名称`          |  
+| `sel_search_ok.xml`       | 搜索界面确认选择器 `类型_模块名_逻辑名称`  |  
+| `shape_music_ring.xml`    | 音乐界面环形形状 `类型_模块名_逻辑名称`   |  
 
 如果有多种形态，如按钮选择器：`sel_btn_xx.xml`，采用如下命名：
 
-| 名称                      | 说明                            |
-| ----------------------- | ----------------------------- |
-| `sel_btn_xx`            | 作用在 `btn_xx` 上的 `selector`    |
-| `btn_xx_normal`         | 默认状态效果                        |
-| `btn_xx_pressed`        | `state_pressed` 点击效果          |
-| `btn_xx_focused`        | `state_focused` 聚焦效果          |
-| `btn_xx_disabled`       | `state_enabled` 不可用效果         |
-| `btn_xx_checked`        | `state_checked` 选中效果          |
-| `btn_xx_selected`       | `state_selected` 选中效果         |
-| `btn_xx_hovered`        | `state_hovered` 悬停效果          |
-| `btn_xx_checkable`      | `state_checkable` 可选效果        |
-| `btn_xx_activated`      | `state_activated` 激活效果        |
-| `btn_xx_window_focused` | `state_window_focused` 窗口聚焦效果 |
+| 名称                      | 说明                            |  
+| ----------------------- | ----------------------------- |  
+| `sel_btn_xx`            | 作用在 `btn_xx` 上的 `selector`    |  
+| `btn_xx_normal`         | 默认状态效果                        |  
+| `btn_xx_pressed`        | `state_pressed` 点击效果          |  
+| `btn_xx_focused`        | `state_focused` 聚焦效果          |  
+| `btn_xx_disabled`       | `state_enabled` 不可用效果         |  
+| `btn_xx_checked`        | `state_checked` 选中效果          |  
+| `btn_xx_selected`       | `state_selected` 选中效果         |  
+| `btn_xx_hovered`        | `state_hovered` 悬停效果          |  
+| `btn_xx_checkable`      | `state_checkable` 可选效果        |  
+| `btn_xx_activated`      | `state_activated` 激活效果        |  
+| `btn_xx_window_focused` | `state_window_focused` 窗口聚焦效果 |  
 
 > 注意：使用 Android Studio 的插件 SelectorChapek 可以快速生成 selector，前提是命名要规范。
 
@@ -721,16 +703,16 @@ public Observable<Location> syncLocations() {
 
 例如：
 
-| 名称                          | 说明                          |
-| --------------------------- | --------------------------- |
-| `activity_main.xml`         | 主窗体 `类型_模块名`                |
-| `activity_main_head.xml`    | 主窗体头部 `类型_模块名_逻辑名称`         |
-| `fragment_music.xml`        | 音乐片段 `类型_模块名`               |
-| `fragment_music_player.xml` | 音乐片段的播放器 `类型_模块名_逻辑名称`      |
-| `dialog_loading.xml`        | 加载对话框 `类型_逻辑名称`             |
-| `ppw_info.xml`              | 信息弹窗（PopupWindow） `类型_逻辑名称` |
-| `item_main_song.xml`        | 主页歌曲列表项 `类型_模块名_逻辑名称`       |
-
+| 名称                          | 说明                          |  
+| --------------------------- | --------------------------- |   
+| `activity_main.xml`         | 主窗体 `类型_模块名`                |  
+| `activity_main_head.xml`    | 主窗体头部 `类型_模块名_逻辑名称`         |  
+| `fragment_music.xml`        | 音乐片段 `类型_模块名`               |  
+| `fragment_music_player.xml` | 音乐片段的播放器 `类型_模块名_逻辑名称`      |  
+| `dialog_loading.xml`        | 加载对话框 `类型_逻辑名称`             |  
+| `ppw_info.xml`              | 信息弹窗（PopupWindow） `类型_逻辑名称` |  
+| `item_main_song.xml`        | 主页歌曲列表项 `类型_模块名_逻辑名称`       |  
+  
 
 #### 5.5 菜单资源文件（menu/）
 
@@ -753,40 +735,40 @@ public Observable<Location> syncLocations() {
 
 例如，不要像下面这样做：
 
-```xml
-  <resources>
-      <color name="button_foreground">#FFFFFF</color>
-      <color name="button_background">#2A91BD</color>
-      <color name="comment_background_inactive">#5F5F5F</color>
-      <color name="comment_background_active">#939393</color>
-      <color name="comment_foreground">#FFFFFF</color>
-      <color name="comment_foreground_important">#FF9D2F</color>
-      ...
-      <color name="comment_shadow">#323232</color>
-```
+    
+	  <resources>
+	      <color name="button_foreground">#FFFFFF</color>
+	      <color name="button_background">#2A91BD</color>
+	      <color name="comment_background_inactive">#5F5F5F</color>
+	      <color name="comment_background_active">#939393</color>
+	      <color name="comment_foreground">#FFFFFF</color>
+	      <color name="comment_foreground_important">#FF9D2F</color>
+	      ...
+	      <color name="comment_shadow">#323232</color>
+
 
 使用这种格式，会非常容易重复定义 ARGB 值，而且如果应用要改变基色的话会非常困难。同时，这些定义是跟一些环境关联起来的，如 `button` 或者 `comment`，应该放到一个按钮风格中，而不是在 `colors.xml` 文件中。
 
 相反，应该这样做：
 
-```xml
-  <resources>
+    
+	  <resources>
+	
+	      <!-- grayscale -->
+	      <color name="white"     >#FFFFFF</color>
+	      <color name="gray_light">#DBDBDB</color>
+	      <color name="gray"      >#939393</color>
+	      <color name="gray_dark" >#5F5F5F</color>
+	      <color name="black"     >#323232</color>
+	
+	      <!-- basic colors -->
+	      <color name="green">#27D34D</color>
+	      <color name="blue">#2A91BD</color>
+	      <color name="orange">#FF9D2F</color>
+	      <color name="red">#FF432F</color>
+	
+	  </resources>
 
-      <!-- grayscale -->
-      <color name="white"     >#FFFFFF</color>
-      <color name="gray_light">#DBDBDB</color>
-      <color name="gray"      >#939393</color>
-      <color name="gray_dark" >#5F5F5F</color>
-      <color name="black"     >#323232</color>
-
-      <!-- basic colors -->
-      <color name="green">#27D34D</color>
-      <color name="blue">#2A91BD</color>
-      <color name="orange">#FF9D2F</color>
-      <color name="red">#FF432F</color>
-
-  </resources>
-```
 
 向应用设计者那里要这个调色板，名称不需要跟 `"green"`、`"blue"` 等等相同。`"brand_primary"`、`"brand_secondary"`、`"brand_negative"` 这样的名字也是完全可以接受的。像这样规范的颜色很容易修改或重构，会使应用一共使用了多少种不同的颜色变得非常清晰。通常一个具有审美价值的 UI 来说，减少使用颜色的种类是非常重要的。
 
@@ -797,29 +779,29 @@ public Observable<Location> syncLocations() {
 
 像对待 `colors.xml` 一样对待 `dimens.xml` 文件，与定义颜色调色板一样，你同时也应该定义一个空隙间隔和字体大小的“调色板”。 一个好的例子，如下所示：
 
-```xml
-<resources>
+    
+	<resources>
+	
+	    <!-- font sizes -->
+	    <dimen name="font_22">22sp</dimen>
+	    <dimen name="font_18">18sp</dimen>
+	    <dimen name="font_15">15sp</dimen>
+	    <dimen name="font_12">12sp</dimen>
+	
+	    <!-- typical spacing between two views -->
+	    <dimen name="spacing_40">40dp</dimen>
+	    <dimen name="spacing_24">24dp</dimen>
+	    <dimen name="spacing_14">14dp</dimen>
+	    <dimen name="spacing_10">10dp</dimen>
+	    <dimen name="spacing_4">4dp</dimen>
+	
+	    <!-- typical sizes of views -->
+	    <dimen name="button_height_60">60dp</dimen>
+	    <dimen name="button_height_40">40dp</dimen>
+	    <dimen name="button_height_32">32dp</dimen>
+	
+	</resources>
 
-    <!-- font sizes -->
-    <dimen name="font_22">22sp</dimen>
-    <dimen name="font_18">18sp</dimen>
-    <dimen name="font_15">15sp</dimen>
-    <dimen name="font_12">12sp</dimen>
-
-    <!-- typical spacing between two views -->
-    <dimen name="spacing_40">40dp</dimen>
-    <dimen name="spacing_24">24dp</dimen>
-    <dimen name="spacing_14">14dp</dimen>
-    <dimen name="spacing_10">10dp</dimen>
-    <dimen name="spacing_4">4dp</dimen>
-
-    <!-- typical sizes of views -->
-    <dimen name="button_height_60">60dp</dimen>
-    <dimen name="button_height_40">40dp</dimen>
-    <dimen name="button_height_32">32dp</dimen>
-
-</resources>
-```
 
 布局时在写 `margins` 和 `paddings` 时，你应该使用 `spacing_xx` 尺寸格式来布局，而不是像对待 `string` 字符串一样直接写值，像这样规范的尺寸很容易修改或重构，会使应用所有用到的尺寸一目了然。 这样写会非常有感觉，会使组织和改变风格或布局非常容易。
 
@@ -828,38 +810,38 @@ public Observable<Location> syncLocations() {
 
 `<string>` 的 `name` 命名使用下划线命名法，采用以下规则：`{模块名_}逻辑名称`，这样方便同一个界面的所有 `string` 都放到一起，方便查找。
 
-| 名称                  | 说明      |
-| ------------------- | ------- |
-| `main_menu_about`   | 主菜单按键文字 |
-| `friend_title`      | 好友模块标题栏 |
-| `friend_dialog_del` | 好友删除提示  |
-| `login_check_email` | 登录验证    |
-| `dialog_title`      | 弹出框标题   |
-| `button_ok`         | 确认键     |
-| `loading`           | 加载文字    |
+| 名称                  | 说明      |  
+| ------------------- | ------- |  
+| `main_menu_about`   | 主菜单按键文字 |  
+| `friend_title`      | 好友模块标题栏 |  
+| `friend_dialog_del` | 好友删除提示  |  
+| `login_check_email` | 登录验证    |  
+| `dialog_title`      | 弹出框标题   |  
+| `button_ok`         | 确认键     |  
+| `loading`           | 加载文字    |  
 
 
 ##### 5.6.4 styles.xml
 
 `<style>` 的 `name` 命名使用大驼峰命名法，几乎每个项目都需要适当的使用 `styles.xml` 文件，因为对于一个视图来说，有一个重复的外观是很常见的，将所有的外观细节属性（`colors`、`padding`、`font`）放在 `styles.xml` 文件中。 在应用中对于大多数文本内容，最起码你应该有一个通用的 `styles.xml` 文件，例如：
 
-```
-<style name="ContentText">
-    <item name="android:textSize">@dimen/font_normal</item>
-    <item name="android:textColor">@color/basic_black</item>
-</style>
-```
+    
+	<style name="ContentText">
+	    <item name="android:textSize">@dimen/font_normal</item>
+	    <item name="android:textColor">@color/basic_black</item>
+	</style>
+
 
 应用到 `TextView` 中：
 
-```
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/price"
-    style="@style/ContentText"
-    />
-```
+    
+	<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/price"
+	    style="@style/ContentText"
+	    />
+
 
 或许你需要为按钮控件做同样的事情，不要停止在那里，将一组相关的和重复 `android:xxxx` 的属性放到一个通用的 `<style>` 中。
 
@@ -875,7 +857,6 @@ public Observable<Location> syncLocations() {
 
 Android 开发存在着众多版本的不同，比如 `compileSdkVersion`、`minSdkVersion`、`targetSdkVersion` 以及项目中依赖第三方库的版本，不同的 module 及不同的开发人员都有不同的版本，所以需要一个统一版本规范的文件。
 
-具体可以参考我写的这篇博文：**[Android 开发之版本统一规范][Android 开发之版本统一规范]**。
 
 如果是开发多个系统级别的应用，当多个应用同时用到相同的 `so` 库时，一定要确保 `so` 库的版本一致，否则可能会引发应用崩溃。
 
@@ -896,7 +877,10 @@ Android 开发存在着众多版本的不同，比如 `compileSdkVersion`、`min
 * **[EventBus][EventBus]**/**[AndroidEventBus][AndroidEventBus]**
 * **[GreenDao][GreenDao]**
 * **[Dagger2][Dagger2]**（选用）
-* **[Tinker][Tinker]**（选用）
+* **[Tinker][Tinker]**（选用）  
+附图一张:  
+
+<img src="http://img.blog.csdn.net/20180223153835414" width="55%" height ="100%"/>
 
 
 ### 8 注释规范
@@ -907,34 +891,34 @@ Android 开发存在着众多版本的不同，比如 `compileSdkVersion`、`min
 
 每个类完成后应该有作者姓名和联系方式的注释，对自己的代码负责。
 
-```java
-/**
- * <pre>
- *     author : Blankj
- *     e-mail : xxx@xx
- *     time   : 2017/03/07
- *     desc   : xxxx 描述
- *     version: 1.0
- * </pre>
- */
-public class WelcomeActivity {
-    ...
-}
-```
+    
+	/**
+	 * <pre>
+	 *     author : Blankj
+	 *     e-mail : xxx@xx
+	 *     time   : 2017/03/07
+	 *     desc   : xxxx 描述
+	 *     version: 1.0
+	 * </pre>
+	 */
+	public class WelcomeActivity {
+	    ...
+	}
+
 
 具体可以在 AS 中自己配制，进入 Settings -> Editor -> File and Code Templates -> Includes -> File Header，输入
 
-```java
-/**
- * <pre>
- *     author : ${USER}
- *     e-mail : xxx@xx
- *     time   : ${YEAR}/${MONTH}/${DAY}
- *     desc   :
- *     version: 1.0
- * </pre>
- */
-```
+    
+	/**
+	 * <pre>
+	 *     author : ${USER}
+	 *     e-mail : xxx@xx
+	 *     time   : ${YEAR}/${MONTH}/${DAY}
+	 *     desc   :
+	 *     version: 1.0
+	 * </pre>
+	 */
+
 
 这样便可在每次新建类的时候自动加上该头注释。
 
@@ -943,39 +927,39 @@ public class WelcomeActivity {
 
 每一个成员方法（包括自定义成员方法、覆盖方法、属性方法）的方法头都必须做方法头注释，在方法前一行输入 `/** + 回车` 或者设置 `Fix doc comment`（Settings -> Keymap -> Fix doc comment）快捷键，AS 便会帮你生成模板，我们只需要补全参数即可，如下所示。
 
-```java
-/**
- * bitmap 转 byteArr
- *
- * @param bitmap bitmap 对象
- * @param format 格式
- * @return 字节数组
- */
-public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
-    if (bitmap == null) return null;
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    bitmap.compress(format, 100, baos);
-    return baos.toByteArray();
-}
-```
+    
+	/**
+	 * bitmap 转 byteArr
+	 *
+	 * @param bitmap bitmap 对象
+	 * @param format 格式
+	 * @return 字节数组
+	 */
+	public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
+	    if (bitmap == null) return null;
+	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	    bitmap.compress(format, 100, baos);
+	    return baos.toByteArray();
+	}
+
 
 
 #### 8.3 块注释
 
 块注释与其周围的代码在同一缩进级别。它们可以是 `/* ... */` 风格，也可以是 `// ...` 风格（**`//` 后最好带一个空格**）。对于多行的 `/* ... */` 注释，后续行必须从 `*` 开始， 并且与前一行的 `*` 对齐。以下示例注释都是 OK 的。
 
-```java
-/*
- * This is
- * okay.
- */
+    
+	/*
+	 * This is
+	 * okay.
+	 */
+	
+	// And so
+	// is this.
+	
+	/* Or you can
+	 * even do this. */
 
-// And so
-// is this.
-
-/* Or you can
-* even do this. */
-```
 
 注释不要封闭在由星号或其它字符绘制的框架里。
 
@@ -986,10 +970,10 @@ public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
 
 AS 已帮你集成了一些注释模板，我们只需要直接使用即可，在代码中输入 `todo`、`fixme` 等这些注释模板，回车后便会出现如下注释。
 
-```java
-// TODO: 17/3/14 需要实现，但目前还未实现的功能的说明
-// FIXME: 17/3/14 需要修正，甚至代码是错误的，不能工作，需要修复的说明
-```
+    
+	// TODO: 17/3/14 需要实现，但目前还未实现的功能的说明
+	// FIXME: 17/3/14 需要修正，甚至代码是错误的，不能工作，需要修复的说明
+
 
 
 ### 9 测试规范
@@ -1046,40 +1030,35 @@ AS 已帮你集成了一些注释模板，我们只需要直接使用即可，�
 14. 尽量减少对变量的重复计算；
 
     如下面的操作：
-
-    ```java
-    for (int i = 0; i < list.size(); i++) {
-          ...
-    }
-    ```
+    
+	    for (int i = 0; i < list.size(); i++) {
+	          ...
+	    }
+ 
 
     建议替换为：
 
-    ```java
-    for (int i = 0, len = list.size(); i < len; i++) {
-          ...
-    }
-    ```
+  
+	    for (int i = 0, len = list.size(); i < len; i++) {
+	          ...
+	    }
+   
 
 15. 尽量采用懒加载的策略，即在需要的时候才创建；
 
     例如：
-
-    ```java
-    String str = "aaa";
-    if (i == 1) {
-          list.add(str);
-    }
-    ```
+    
+	    String str = "aaa";
+	    if (i == 1) {
+	          list.add(str);
+	    }
 
     建议替换为：
-
-    ```java
-    if (i == 1) {
-          String str = "aaa";
-          list.add(str);
-    }
-    ```
+    
+	    if (i == 1) {
+	          String str = "aaa";
+	          list.add(str);
+	    }
 
 16. 不要在循环中使用 `try…catch…`，应该把其放在最外层；
 
@@ -1117,60 +1096,60 @@ AS 已帮你集成了一些注释模板，我们只需要直接使用即可，�
 
 ### UI 控件缩写表
 
-| 名称             | 缩写   |
-| -------------- | ---- |
-| Button         | btn  |
-| CheckBox       | cb   |
-| EditText       | et   |
-| FrameLayout    | fl   |
-| GridView       | gv   |
-| ImageButton    | ib   |
-| ImageView      | iv   |
-| LinearLayout   | ll   |
-| ListView       | lv   |
-| ProgressBar    | pb   |
-| RadioButtion   | rb   |
-| RecyclerView   | rv   |
-| RelativeLayout | rl   |
-| ScrollView     | sv   |
-| SeekBar        | sb   |
-| Spinner        | spn  |
-| TextView       | tv   |
-| ToggleButton   | tb   |
-| VideoView      | vv   |
-| WebView        | wv   |
+| 名称           | 缩写   |  
+| -------------- | ---- |  
+| Button         | btn  |  
+| CheckBox       | cb   |  
+| EditText       | et   |  
+| FrameLayout    | fl   |  
+| GridView       | gv   |  
+| ImageButton    | ib   |  
+| ImageView      | iv   |  
+| LinearLayout   | ll   |  
+| ListView       | lv   |  
+| ProgressBar    | pb   |  
+| RadioButtion   | rb   |  
+| RecyclerView   | rv   |  
+| RelativeLayout | rl   |  
+| ScrollView     | sv   |  
+| SeekBar        | sb   |  
+| Spinner        | spn  |  
+| TextView       | tv   |  
+| ToggleButton   | tb   |  
+| VideoView      | vv   |  
+| WebView        | wv   |  
 
 ### 常见的英文单词缩写表
 
-| 名称                   | 缩写                                       |
-| -------------------- | ---------------------------------------- |
-| average              | avg                                      |
-| background           | bg（主要用于布局和子布局的背景）                        |
-| buffer               | buf                                      |
-| control              | ctrl                                     |
-| current              | cur                                      |
-| default              | def                                      |
-| delete               | del                                      |
-| document             | doc                                      |
-| error                | err                                      |
-| escape               | esc                                      |
-| icon                 | ic（主要用在 App 的图标）                         |
-| increment            | inc                                      |
-| information          | info                                     |
-| initial              | init                                     |
-| image                | img                                      |
-| Internationalization | I18N                                     |
-| length               | len                                      |
-| library              | lib                                      |
-| message              | msg                                      |
-| password             | pwd                                      |
-| position             | pos                                      |
-| previous             | pre                                      |
-| selector             | sel（主要用于某一 view 多种状态，不仅包括 ListView 中的 selector，还包括按钮的 selector） |
-| server               | srv                                      |
-| string               | str                                      |
-| temporary            | tmp                                      |
-| window               | win                                      |
+| 名称                   | 缩写                                       |  
+| -------------------- | ---------------------------------------- |  
+| average              | avg                                      |  
+| background           | bg（主要用于布局和子布局的背景）                        |  
+| buffer               | buf                                      |  
+| control              | ctrl                                     |  
+| current              | cur                                      |  
+| default              | def                                      |  
+| delete               | del                                      |  
+| document             | doc                                      |  
+| error                | err                                      |  
+| escape               | esc                                      |  
+| icon                 | ic（主要用在 App 的图标）                   |  
+| increment            | inc                                      |  
+| information          | info                                     |  
+| initial              | init                                     |  
+| image                | img                                      |  
+| Internationalization | I18N                                     |  
+| length               | len                                      |  
+| library              | lib                                      |  
+| message              | msg                                      |  
+| password             | pwd                                      |  
+| position             | pos                                      |  
+| previous             | pre                                      |  
+| selector             | sel（主要用于某一 view 多种状态，不仅包括 ListView 中的 selector，还包括按钮的 selector） |  
+| server               | srv                                      |  
+| string               | str                                      |  
+| temporary            | tmp                                      |  
+| window               | win                                      |  
 
 程序中使用单词缩写原则：不要用缩写，除非该缩写是约定俗成的。
 
@@ -1191,31 +1170,15 @@ AS 已帮你集成了一些注释模板，我们只需要直接使用即可，�
 [小细节，大用途，35 个 Java 代码性能优化总结！][小细节，大用途，35 个 Java 代码性能优化总结！]
 
 
-## 版本日志
-
-* 17/12/08: 新增组件化和三方库开发资源文件规范；
-* 17/12/05: 新增 logo；
-* 17/12/04: 完善按功能分包，修复 typo，定该版为完结版；
-* 17/12/03: 完善代码样式规范和测试规范；
-* 17/12/02: 新增代码样式规范；
-* 17/12/01: 对资源文件规范进行重构；
-* 17/11/29: 格式化中英混排；
-* 17/03/14: 包名划分为按功能划分；
-* 17/03/13: 新增其他注释；
-* 17/03/08: 规范排版，修复 typo 及新增一些规范；
-* 17/03/07: 修订目录排版，完善某些细节；
-* 17/03/06: 发布初版；
 
 
-
-[logo]: https://raw.githubusercontent.com/Blankj/AndroidStandardDevelop/master/art/logo.png
+[logo]: http://img.blog.csdn.net/20180223153407739
 [Package by features, not layers]: https://medium.com/@cesarmcferreira/package-by-features-not-layers-2d076df1964d#.mp782izhh
 [todo-mvp]: https://github.com/googlesamples/android-architecture/tree/todo-mvp/
 [Android 开发规范（完结版）]: https://github.com/Blankj/AndroidStandardDevelop
 [Android 开发者工具]: http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2017/0526/7973.html
-[Android Studio 下对资源进行分包]: https://blankj.com/2016/09/21/android-studio-classify-src-package/
+[Android Studio 下对资源进行分包]: http://blog.csdn.net/xjsast/article/details/79353468
 [可绘制对象资源类型]: https://developer.android.com/guide/topics/resources/drawable-resource.html
-[Android 开发之版本统一规范]: https://blankj.com/2016/09/21/android-keep-version-unity/
 [Android 流行框架查速表]: http://www.ctolib.com/cheatsheets-Android-ch.html
 [Android 开发人员不得不收集的代码]: https://github.com/Blankj/AndroidUtilCode
 [Retrofit]: https://github.com/square/retrofit
@@ -1233,7 +1196,7 @@ AS 已帮你集成了一些注释模板，我们只需要直接使用即可，�
 [Android 包命名规范]: http://www.ayqy.net/blog/android%E5%8C%85%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/
 [Android 开发最佳实践]: https://github.com/futurice/android-best-practices/blob/master/translations/Chinese/README.cn.md
 [Android 编码规范]: http://www.jianshu.com/p/0a984f999592
-[阿里巴巴 Java 开发手册]: https://github.com/alibaba/p3c/blob/master/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E7%BA%AA%E5%BF%B5%E7%89%88%EF%BC%89.pdf
+[阿里巴巴 Java 开发手册]: https://github.com/xjsast/alibaba/blob/master/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C_v1.3.1.pdf
 [Project and code style guidelines]: https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md
 [Google Java 编程风格指南]: http://www.hawstein.com/posts/google-java-style.html
 [小细节，大用途，35 个 Java 代码性能优化总结！]: http://www.jianshu.com/p/436943216526
